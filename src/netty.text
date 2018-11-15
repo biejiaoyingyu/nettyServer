@@ -1,0 +1,23 @@
+每个Channel都将会被分配一个ChannelPipeline和ChannelConfig。ChannelConfig 包含了该
+Channel的所有配置设置，并且支持热更新。由于特定的传输可能具有独特的设置，所以它可能会实现
+一个ChannelConfig 的子类型。
+由于 Channel 是独一无二的，所以为了保证顺序将 Channel 声明为 java.lang.Comparable
+的一个子接口。因此，如果两个不同的 Channel 实例都返回了相同的散列码，那么 AbstractChannel
+中的 compareTo()方法的实现将会抛出一个 Error。ChannelPipeline 持有所有将应用于入站和出站
+数据以及事件的 ChannelHandler 实例，这些 ChannelHandler 实现了应用程序用于处理状态变化以
+及数据处理的逻辑.
+================================
+ChannelHandler 的典型用途包括:
+1.将数据从一种格式转换为另一种格式；
+2.提供异常的通知；
+3.提供 Channel 变为活动的或者非活动的通知；
+4.提供当 Channel 注册到 EventLoop 或者从 EventLoop 注销时的通知；
+5.提供有关用户自定义事件的通知。
+
+===================================
+Channel 典型的方法
+write 将数据写到远程节点。这个数据将被传递给 ChannelPipeline，并且排队直到它被冲刷
+flush 将之前已写的数据冲刷到底层传输，如一个 Socket
+writeAndFlush 一个简便的方法，等同于调用 write()并接着调用 flush()
+
+================================================================
