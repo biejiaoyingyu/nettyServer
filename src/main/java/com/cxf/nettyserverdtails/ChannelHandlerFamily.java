@@ -144,7 +144,7 @@ public class ChannelHandlerFamily {
      */
     @ChannelHandler.Sharable
     public class DiscardInboundHandler extends ChannelInboundHandlerAdapter {
-        @Override
+
         public void channelRead(ChannelHandlerContext ctx, Object msg) {
             //通过调用 ReferenceCountUtil.release()释放资源
             ReferenceCountUtil.release(msg);
@@ -331,7 +331,7 @@ public class ChannelHandlerFamily {
         String someMessage = "hahh";
         ChannelFuture future = channel.write(someMessage);
         future.addListener(new ChannelFutureListener() {
-            @Override
+
             public void operationComplete(ChannelFuture f) {
                 if (!f.isSuccess()) {
                     f.cause().printStackTrace();
@@ -355,7 +355,6 @@ public class ChannelHandlerFamily {
         @Override
         public void write(ChannelHandlerContext ctx, Object msg, ChannelPromise promise) {
             promise.addListener(new ChannelFutureListener() {
-                @Override
                 public void operationComplete(ChannelFuture f) {
                     if (!f.isSuccess()) {
                         f.cause().printStackTrace();
