@@ -89,9 +89,7 @@ public class EchoServer {
                     future.cause().printStackTrace();
                 }
             }
-
         });
-
     }
 
     /**
